@@ -7,8 +7,9 @@ import 'package:mytodo/page/todo.dart';
 import 'package:mytodo/page/notes.dart';  
 import 'package:provider/provider.dart';  
 import 'package:mytodo/page/themeprovider.dart';  
-import 'package:mytodo/helpers/user_info.dart'; // Import UserInfo untuk memeriksa token  
-import 'package:mytodo/page/login.dart'; // Import halaman login  
+import 'package:mytodo/page/login.dart';  
+import 'package:mytodo/page/register.dart'; // Tambahkan import register page  
+import 'package:mytodo/helpers/user_info.dart';  
 
 class MyHttpOverrides extends HttpOverrides {  
   @override  
@@ -84,25 +85,26 @@ class _MainAppState extends State<MainApp> {
   }  
 }  
 
-Future<void> main() async {  
+void main() async {  
   // Inisialisasi HttpOverrides  
   HttpOverrides.global = MyHttpOverrides();  
   
-  WidgetsFlutterBinding.ensureInitialized(); // Pastikan binding diinisialisasi  
-  var token = await UserInfo().getToken(); // Ambil token dari UserInfo  
-
+  // Tambahkan pengecekan token  
+  WidgetsFlutterBinding.ensureInitialized();  
+  String? token = await UserInfo().getToken();  
+  
   runApp(  
     ChangeNotifierProvider(  
-      create: (context) => ThemeProvider(), // Gunakan ThemeProvider  
-      child: MyApp(token: token), // Pass token ke MyApp  
+      create: (context) => ThemeProvider(),   
+      child: MyApp(isLoggedIn: token != null), // Gunakan token != null  
     ),  
   );  
 }  
 
 class MyApp extends StatelessWidget {  
-  final String? token; // Tambahkan parameter token  
-
-  const MyApp({Key? key, this.token}) : super(key: key); // Constructor  
+  final bool isLoggedIn;  
+  
+  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);  
 
   @override  
   Widget build(BuildContext context) {  
@@ -110,12 +112,17 @@ class MyApp extends StatelessWidget {
       builder: (context, themeProvider, child) {  
         return MaterialApp(  
           title: 'My To-Do App',  
-          theme: themeProvider.lightTheme, // Gunakan light theme dari provider  
-          darkTheme: themeProvider.darkTheme, // Gunakan dark theme dari provider  
-          themeMode: themeProvider.themeMode, // Gunakan themeMode dari provider  
-          home: token == null ? Login() : MainApp(), // Arahkan ke Login atau MainApp  
+          theme: themeProvider.lightTheme,  
+          darkTheme: themeProvider.darkTheme,  
+          themeMode: themeProvider.themeMode,  
+          // Ubah home menjadi kondisional  
+          home: isLoggedIn ? MainApp() : Login(),  
+          routes: {  
+            '/login': (context) => Login(),  
+            '/register': (context) => RegisterPage(),  
+          },  
         );  
       },  
     );  
   }  
-}
+}  

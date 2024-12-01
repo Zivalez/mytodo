@@ -8,10 +8,10 @@ class TodoPage extends StatefulWidget {
 }  
 
 class _TodoPageState extends State<TodoPage> {  
-  final String apiUrl = 'https://6735a0a75995834c8a936f0e.mockapi.io/api/v5/tasks';  
+  final String apiUrl = 'https://6735a0a75995834c8a936f0e.mockapi.io/api/v5/items';  
   final TextEditingController _taskController = TextEditingController();  
   List<Map<String, dynamic>> _tasks = [];  
-  int totalTasks = 100;  
+  int totalTasks = 50;  
   int completedTasks = 0;  
 
   @override  
@@ -22,16 +22,27 @@ class _TodoPageState extends State<TodoPage> {
 
   // Fetch tasks dari api  
   Future<void> fetchTasks() async {  
-    final response = await http.get(Uri.parse(apiUrl));  
-    if (response.statusCode == 200) {  
-      setState(() {  
-        _tasks = List<Map<String, dynamic>>.from(json.decode(response.body));  
-        completedTasks = _tasks.where((task) => task['completed'] == true).length;  
-      });  
-    } else {  
-      print("Gagal memuat tugas");  
+    try {  
+      final response = await http.get(Uri.parse(apiUrl));  
+      
+      if (response.statusCode == 200) {  
+        setState(() {  
+          // Filter hanya item dengan type "todo"  
+          _tasks = List<Map<String, dynamic>>.from(  
+            json.decode(response.body)  
+              .where((item) => item['type'] == 'todo')  
+              .toList()  
+          );  
+          
+          completedTasks = _tasks.where((task) => task['completed'] == true).length;  
+        });  
+      } else {  
+        print("Gagal memuat tugas: ${response.statusCode}");  
+      }  
+    } catch (e) {  
+      print("Error fetching tasks: $e");  
     }  
-  }  
+  }
 
   void showMaxTasksReachedDialog() {  
     showDialog(  
@@ -73,50 +84,107 @@ class _TodoPageState extends State<TodoPage> {
       showMaxTasksReachedDialog();  
       return;  
     }  
-    final response = await http.post(Uri.parse(apiUrl),  
+    
+    try {  
+      final response = await http.post(  
+        Uri.parse(apiUrl),  
         headers: {"Content-Type": "application/json"},  
-        body: json.encode({"task": task, "completed": false}));  
-    if (response.statusCode == 201) {  
-      fetchTasks();  
-      _taskController.clear();  
-    } else {  
-      print("Gagal menambah tugas");  
+        body: json.encode({  
+          "task": task,   
+          "completed": false,  
+          "type": "todo",  
+          "createdAt": DateTime.now().toIso8601String(),  
+          "lastEdited": DateTime.now().toIso8601String()  
+        })  
+      );  
+
+      if (response.statusCode == 201) {  
+        // Tambahkan di akhir list, bukan di awal  
+        final newTask = json.decode(response.body);  
+        
+        setState(() {  
+          _tasks.insert(0, { 
+            'id': newTask['id'],  
+            'task': newTask['task'],  
+            'completed': false,  
+            'type': 'todo'  
+          });  
+          
+          completedTasks = _tasks.where((task) => task['completed'] == true).length;  
+        });  
+
+        _taskController.clear();  
+      } else {  
+        print("Gagal menambah tugas: ${response.statusCode}");  
+      }  
+    } catch (e) {  
+      print('Error adding task: $e');  
     }  
-  }  
+  }
 
   // Complete tugas status  
   Future<void> toggleTaskCompletion(String id, bool isCompleted) async {  
-    final response = await http.put(Uri.parse('$apiUrl/$id'),  
-        headers: {"Content-Type": "application/json"},  
-        body: json.encode({"completed": isCompleted}));  
+    final response = await http.put(  
+      Uri.parse('$apiUrl/$id'),  
+      headers: {"Content-Type": "application/json"},  
+      body: json.encode({"completed": isCompleted})  
+    );  
+    
     if (response.statusCode == 200) {  
-      fetchTasks();  // Refresh the task list after updating  
+      setState(() {  
+        // Temukan index task yang spesifik  
+        int index = _tasks.indexWhere((task) => task['id'] == id);  
+        if (index != -1) {  
+          // Update hanya completed status pada task tersebut  
+          _tasks[index]['completed'] = isCompleted;  
+          
+          // Perbarui hitungan completed tasks  
+          completedTasks = _tasks.where((task) => task['completed'] == true).length;  
+        }  
+      });  
     } else {  
       print("Gagal memperbarui status tugas");  
     }  
-  }  
+  }
 
   // Edit tugas  
   Future<void> editTask(String id, String newTask) async {  
-    final response = await http.put(Uri.parse('$apiUrl/$id'),  
-        headers: {"Content-Type": "application/json"},  
-        body: json.encode({"task": newTask}));  
+    final response = await http.put(  
+      Uri.parse('$apiUrl/$id'),  
+      headers: {"Content-Type": "application/json"},  
+      body: json.encode({"task": newTask})  
+    );  
+    
     if (response.statusCode == 200) {  
-      fetchTasks();  
+      setState(() {  
+        // Temukan index task yang spesifik  
+        int index = _tasks.indexWhere((task) => task['id'] == id);  
+        if (index != -1) {  
+          // Update hanya task pada index tersebut  
+          _tasks[index]['task'] = newTask;  
+        }  
+      });  
     } else {  
       print("Gagal mengedit tugas");  
     }  
-  }  
+  }
 
   // Hapus tugas  
   Future<void> deleteTask(String id) async {  
     final response = await http.delete(Uri.parse('$apiUrl/$id'));  
+    
     if (response.statusCode == 200) {  
-      fetchTasks();  
+      setState(() {  
+        // Hapus task berdasarkan id  
+        _tasks.removeWhere((task) => task['id'] == id);  
+        
+        // Perbarui hitungan completed tasks  
+        completedTasks = _tasks.where((task) => task['completed'] == true).length;  
+      });  
     } else {  
       print("Gagal menghapus tugas");  
     }  
-  }  
+  }
 
   // popup dialog kalo edit  
   void showEditDialog(String id, String currentTask) {  
@@ -200,7 +268,7 @@ class _TodoPageState extends State<TodoPage> {
             // Hapus baris Row untuk input tugas  
 
             SizedBox(height: 8),  
-            Text("Maksimal 100 Tugas"),  
+            Text("Maksimal 50 Tugas"),  
             SizedBox(height: 4),  
             Align(  
               alignment: Alignment.centerRight,  

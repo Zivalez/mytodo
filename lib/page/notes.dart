@@ -303,6 +303,12 @@ class _NotesScreenState extends State<NotesScreen> {
       return;  
     }  
 
+    // Tambahkan pengecekan jumlah catatan  
+    if (_notes.length >= 50) {  
+      _showSnackBar('Maksimal 50 catatan telah tercapai', isError: true);  
+      return;  
+    }  
+
     try {  
       final newNote = await _notesService.createNote(  
         _titleController.text,  

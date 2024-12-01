@@ -1,28 +1,37 @@
-import '../helpers/user_info.dart';  
-import 'package:http/http.dart' as http;  
-import 'dart:convert';  
+import 'package:dio/dio.dart';  
+import 'package:mytodo/helpers/user_info.dart';  
 
-class LoginService {
-  Future<bool> register(String username, String password) async {  
-    final response = await http.post(  
-      Uri.parse('https://yourapi.com/register'), // Ganti dengan URL API Anda  
-      headers: {"Content-Type": "application/json"},  
-      body: json.encode({"username": username, "password": password}),  
-    );  
+class LoginService {  
+  final Dio _dio = Dio();  
+  final String _apiUrl = 'https://6735a0a75995834c8a936f0e.mockapi.io/api/v5/users';  
 
-    return response.statusCode == 201; // Cek jika registrasi berhasil  
-  } 
-  
   Future<bool> login(String username, String password) async {  
-    bool isLogin = false;  
+    try {  
+      // Cari user dengan username yang sesuai  
+      Response response = await _dio.get(_apiUrl,   
+        queryParameters: {  
+          'username': username,  
+          'password': password  
+        }  
+      );  
 
-    // Cek username dan password  
-    if (username == 'admin' && password == 'admin') {  
-      await UserInfo().setToken("admin");  
-      await UserInfo().setUserID("1");  
-      await UserInfo().setUsername("admin");  
-      isLogin = true;  
+      // Cek apakah ada user yang cocok  
+      if (response.data != null && response.data.isNotEmpty) {  
+        // Generate token sederhana (bisa diganti dengan metode yang lebih aman)  
+        String token = DateTime.now().millisecondsSinceEpoch.toString();  
+        
+        // Simpan token dan username  
+        await UserInfo().setToken(token);  
+        await UserInfo().setUsername(username);  
+        
+        return true;  
+      } else {  
+        // Login gagal  
+        return false;  
+      }  
+    } catch (e) {  
+      print('Login error: $e');  
+      return false;  
     }  
-    return isLogin;  
   }  
 }

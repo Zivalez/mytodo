@@ -1,94 +1,118 @@
 import 'package:flutter/material.dart';  
-import '../service/login_service.dart';  
-import 'package:mytodo/page/register.dart';  
-import 'package:mytodo/page/home.dart';  
+import '../service/login_service.dart'; 
+import 'package:mytodo/main.dart';
 
-class Login extends StatefulWidget {  
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);  
 
   @override  
   _LoginState createState() => _LoginState();  
-}  
+}
 
 class _LoginState extends State<Login> {  
-  final TextEditingController _usernameCtrl = TextEditingController();  
-  final TextEditingController _passwordCtrl = TextEditingController();  
+  final _formKey = GlobalKey<FormState>();  
+  final _usernameCtrl = TextEditingController();  
+  final _passwordCtrl = TextEditingController();  
 
   @override  
   Widget build(BuildContext context) {  
     return Scaffold(  
-      appBar: AppBar(title: const Text("Login")),  
-      body: Padding(  
-        padding: const EdgeInsets.all(16.0),  
-        child: Column(  
-          mainAxisAlignment: MainAxisAlignment.center,  
-          children: [  
-            TextField(  
-              controller: _usernameCtrl,  
-              decoration: const InputDecoration(  
-                labelText: "Username",  
-                border: OutlineInputBorder(),  
-              ),  
-            ),  
-            const SizedBox(height: 16),  
-            TextField(  
-              controller: _passwordCtrl,  
-              decoration: const InputDecoration(  
-                labelText: "Password",  
-                border: OutlineInputBorder(),  
-              ),  
-              obscureText: true,  
-            ),  
-            const SizedBox(height: 24),  
-            ElevatedButton(  
-              onPressed: () async {  
-                String username = _usernameCtrl.text;  
-                String password = _passwordCtrl.text;  
-                bool isLogin = await LoginService().login(username, password);  
-                if (isLogin) {  
-                  Navigator.pushReplacement(  
-                    context,  
-                    MaterialPageRoute(builder: (context) => HomeScreen()),  
-                  );  
-                } else {  
-                  showDialog(  
-                    context: context,  
-                    builder: (context) => AlertDialog(  
-                      content: const Text("Username atau Password Tidak Valid"),  
-                      actions: [  
-                        TextButton(  
-                          onPressed: () => Navigator.of(context).pop(),  
-                          child: const Text("OK"),  
-                        ),  
-                      ],  
-                    ),  
-                  );  
-                }  
-              },  
-              style: ElevatedButton.styleFrom(  
-                minimumSize: const Size(double.infinity, 50),  
-              ),  
-              child: const Text("Login"),  
-            ),  
-            const SizedBox(height: 16),  
-            Row(  
+      body: Center(  
+        child: Form(  
+          key: _formKey,  
+          child: Padding(  
+            padding: const EdgeInsets.all(20.0),  
+            child: Column(  
               mainAxisAlignment: MainAxisAlignment.center,  
               children: [  
-                const Text("Belum punya akun?"),  
-                TextButton(  
-                  onPressed: () {  
-                    Navigator.push(  
-                      context,  
-                      MaterialPageRoute(builder: (context) => Register()),  
-                    );  
-                  },  
-                  child: const Text("Daftar di sini"),  
-                ),  
+                _usernameField(),  
+                const SizedBox(height: 20),  
+                _passwordField(),  
+                const SizedBox(height: 20),  
+                _tombolLogin(),  
+                const SizedBox(height: 10),  
+                _tombolRegister(),   
               ],  
             ),  
-          ],  
+          ),  
         ),  
       ),  
+    );  
+  }  
+
+  // Tambahkan method _usernameField  
+  Widget _usernameField() {  
+    return TextFormField(  
+      decoration: const InputDecoration(  
+        labelText: 'Username',  
+        border: OutlineInputBorder(),  
+      ),  
+      controller: _usernameCtrl,  
+      validator: (value) {  
+        if (value == null || value.isEmpty) {  
+          return 'Username tidak boleh kosong';  
+        }  
+        return null;  
+      },  
+    );  
+  }  
+
+  // Tambahkan method _passwordField  
+  Widget _passwordField() {  
+    return TextFormField(  
+      obscureText: true,  
+      decoration: const InputDecoration(  
+        labelText: 'Password',  
+        border: OutlineInputBorder(),  
+      ),  
+      controller: _passwordCtrl,  
+      validator: (value) {  
+        if (value == null || value.isEmpty) {  
+          return 'Password tidak boleh kosong';  
+        }  
+        return null;  
+      },  
+    );  
+  }  
+
+  // Tambahkan method _tombolLogin  
+  Widget _tombolLogin() {  
+    return ElevatedButton(  
+      child: const Text('Login'),  
+      onPressed: () async {  
+        if (_formKey.currentState!.validate()) {  
+          String username = _usernameCtrl.text;  
+          String password = _passwordCtrl.text;  
+
+          await LoginService().login(username, password).then((value) {  
+            if (value) {  
+              // Ganti ke MainApp() bukan HomeScreen  
+              Navigator.pushReplacement(  
+                context,  
+                MaterialPageRoute(builder: (context) => MainApp()),  
+              );  
+            } else {  
+              ScaffoldMessenger.of(context).showSnackBar(  
+                const SnackBar(  
+                  content: Text('Username atau Password Salah'),  
+                  backgroundColor: Colors.red,  
+                ),  
+              );  
+            }  
+          });  
+        }  
+      },  
+    );  
+  }
+
+  // Tambahkan method _tombolRegister  
+  Widget _tombolRegister() {  
+    return TextButton(  
+      child: const Text('Belum punya akun? Daftar'),  
+      onPressed: () {  
+        // Navigasi ke halaman register  
+        Navigator.pushNamed(context, '/register');  
+      },  
     );  
   }  
 }

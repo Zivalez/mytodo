@@ -115,8 +115,8 @@ class HomeScreen extends StatelessWidget {
               ),  
               label: Text(  
                 themeProvider.isDarkMode   
-                  ? 'Switch to Light Mode'   
-                  : 'Switch to Dark Mode',  
+                  ? 'Ganti ke Light Mode'   
+                  : 'Ganti ke Dark Mode',  
                 style: TextStyle(  
                   fontFamily: 'SFProRounded',  
                 ),  
@@ -139,9 +139,9 @@ class HomeScreen extends StatelessWidget {
   // Metode untuk membuat daftar nama  
   List<Widget> _buildNameList() {  
     List<String> names = [  
-      'Kesalahan adalah guru terbaik',  
-      'dalam perjalanan pemrograman',  
       '',  
+      'Menggabungkan ide dan rencana',  
+      'Semua dalam satu aplikasi',  
       '',  
       'Klik logo ubsi untuk informasi anggota',  
     ];  
