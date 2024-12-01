@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
   String _profileImageUrl = '';  
   final _usernameController = TextEditingController();  
   final _passwordController = TextEditingController();  
-  List<String> _connectedUsers = []; // Daftar pengguna yang terhubung  
+  List<String> _connectedUsers = [];
   bool _isLoading = false; 
 
   @override  
@@ -56,13 +56,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
     });  
 
     try {  
-      // Load username  
+
       String? username = await UserInfo().getUsername();  
       
-      // Load profile image  
       String imageUrl = await ProfileImageService().getProfileImageUrl();  
 
-      // Load connected users  
       List<String> users = await UserService().getAllUsers();  
       
       setState(() {  
@@ -129,7 +127,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                   return;  
                 }  
 
-                // Panggil service untuk update profil  
                 bool success = await ProfileService().updateProfile(  
                   currentUsername: _currentUsername,  
                   newUsername: _usernameController.text,  
@@ -139,16 +136,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                 );  
 
                 if (success) {  
-                  // Update username di local storage  
                   await UserInfo().setUsername(_usernameController.text);  
                   
-                  // Refresh tampilan  
                   await _loadProfileData();  
 
-                  // Tutup dialog  
                   Navigator.of(context).pop();  
 
-                  // Tampilkan pesan sukses  
                   ScaffoldMessenger.of(context).showSnackBar(  
                     SnackBar(  
                       content: Text('Profil berhasil diperbarui'),  
@@ -156,7 +149,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),  
                   );  
                 } else {  
-                  // Tampilkan pesan error  
                   ScaffoldMessenger.of(context).showSnackBar(  
                     SnackBar(  
                       content: Text('Gagal memperbarui profil'),  
@@ -175,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
 
   @override  
   Widget build(BuildContext context) {  
-    super.build(context); // Diperlukan untuk AutomaticKeepAliveClientMixin  
+    super.build(context);
     return Scaffold(  
       appBar: AppBar(  
         title: Text('Profil Pengguna'),  
@@ -195,7 +187,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
           child: Column(  
             crossAxisAlignment: CrossAxisAlignment.center,  
             children: [  
-              // Foto profil dari API  
               CircleAvatar(  
                 radius: 60,  
                 backgroundImage: _profileImageUrl.isNotEmpty  
@@ -206,8 +197,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                   : null,  
               ),  
               SizedBox(height: 20),  
-
-              // Username aktif  
               Text(  
                 _currentUsername,  
                 style: TextStyle(  
@@ -217,7 +206,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
               ),  
               SizedBox(height: 10),  
 
-              // Tombol Edit Username  
               ElevatedButton.icon(  
                 onPressed: _showEditProfileDialog,  
                 icon: Icon(Icons.edit),  
@@ -225,10 +213,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
               ),  
               SizedBox(height: 10),  
 
-              // Spacer untuk mendorong konten ke atas  
               Spacer(),  
 
-              // Daftar pengguna yang terhubung  
               Row(  
                 mainAxisAlignment: MainAxisAlignment.center,  
                 children: [  
@@ -240,7 +226,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),  
                   ),  
                   SizedBox(width: 10),  
-                  // Tombol untuk melihat detail pengguna  
                   ElevatedButton(  
                     onPressed: () {  
                       _showConnectedUsersDialog(context);  
@@ -255,7 +240,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
               ),  
               SizedBox(height: 20),  
 
-              // Tombol Logout  
               Container(  
                 width: double.infinity,  
                 padding: EdgeInsets.symmetric(horizontal: 16),  
@@ -264,10 +248,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     backgroundColor: Colors.red,  
                   ),  
                   onPressed: () async {  
-                    // Hapus token  
                     await UserInfo().clearToken();  
                     
-                    // Navigasi ke halaman login  
                     Navigator.of(context).pushAndRemoveUntil(  
                       MaterialPageRoute(builder: (context) => Login()),   
                       (Route<dynamic> route) => false  
@@ -286,7 +268,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
     );  
   }  
 
-  // Method untuk menampilkan dialog daftar pengguna  
   void _showConnectedUsersDialog(BuildContext context) {  
     showDialog(  
       context: context,  

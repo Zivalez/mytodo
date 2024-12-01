@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           children: [  
             const SizedBox(height: 20),  
             InkWell(  
-              borderRadius: BorderRadius.circular(20), // Sesuaikan radius yang diinginkan  
+              borderRadius: BorderRadius.circular(20),
               onTap: () {  
                 showModalBottomSheet(  
                   context: context,  
@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                 width: 220,  
                 height: 220,  
                 decoration: BoxDecoration(  
-                  borderRadius: BorderRadius.circular(20), // Ganti dari shape: BoxShape.circle  
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [  
                     BoxShadow(  
                       color: Colors.black26,  
@@ -135,8 +135,7 @@ class HomeScreen extends StatelessWidget {
       ),  
     );  
   }  
-
-  // Metode untuk membuat daftar nama  
+ 
   List<Widget> _buildNameList() {  
     List<String> names = [  
       '',  

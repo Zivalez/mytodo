@@ -24,7 +24,7 @@ class TodoService {
 
   Future<dynamic> createTodo(String task) async {  
     try {  
-      List<dynamic> todos = await fetchTodos(); // Ambil semua todo  
+      List<dynamic> todos = await fetchTodos();
       print('Current number of todos: ${todos.length}'); // Debugging  
 
       if (todos.length >= 50) {  
@@ -59,7 +59,6 @@ class TodoService {
     }  
   }
 
-  // Method untuk menghapus todo  
   Future<void> deleteTodo(String id) async {  
     try {  
       final response = await http.delete(Uri.parse('$baseUrl/$id'));  
@@ -72,14 +71,13 @@ class TodoService {
     }  
   }  
 
-  // Method untuk memperbarui todo  
   Future<dynamic> updateTodo(String id, String task) async {  
     try {  
       String currentTime = DateTime.now().toIso8601String();  
       Map<String, dynamic> updateData = {  
         'task': task,  
         'lastEdited': currentTime,  
-        'type': 'todo', // Pastikan type tetap todo  
+        'type': 'todo',
       };  
 
       final response = await http.put(  
@@ -89,7 +87,7 @@ class TodoService {
       );  
 
       if (response.statusCode == 200) {  
-        return json.decode(response.body); // Kembalikan todo yang diperbarui  
+        return json.decode(response.body); 
       } else {  
         throw Exception('Failed to update todo');  
       }  

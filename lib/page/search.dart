@@ -32,12 +32,10 @@ class _SearchScreenState extends State<SearchScreen> {
       if (response.statusCode == 200) {  
         List<dynamic> allItems = json.decode(response.body);  
 
-        // Tambahkan print untuk debugging  
         print('Total Items: ${allItems.length}');  
         print('Item Types: ${allItems.map((item) => item['type']).toSet()}');  
 
         final results = allItems.where((item) {  
-          // Debugging print untuk setiap item  
           print('Item: ${item['type']}, Task: ${item['task']}');  
 
           return (item['type'] == 'todo' || item['type'] == 'notes') &&  
@@ -84,7 +82,6 @@ class _SearchScreenState extends State<SearchScreen> {
       ),  
       body: Column(  
         children: [  
-          // Search Input  
           Padding(  
             padding: const EdgeInsets.all(8.0),  
             child: TextField(  
@@ -106,8 +103,7 @@ class _SearchScreenState extends State<SearchScreen> {
               onChanged: _performSearch,  
             ),  
           ),  
-
-          // Hasil Pencarian  
+ 
           Expanded(  
             child: _isSearching  
                 ? (_searchResults.isEmpty  

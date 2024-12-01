@@ -12,7 +12,6 @@ class NotesScreen extends StatefulWidget {
 }  
 
 class _NotesScreenState extends State<NotesScreen> {  
-  // Inisialisasi service dan controller  
   final NotesService _notesService = NotesService();  
   final TextEditingController _titleController = TextEditingController();  
   final TextEditingController _contentController = TextEditingController();  
@@ -28,19 +27,16 @@ class _NotesScreenState extends State<NotesScreen> {
         _selectedNoteIds.add(note.id);  
       }  
 
-      // Jika tidak ada yang dipilih, keluar dari mode seleksi  
       _isSelectionMode = _selectedNoteIds.isNotEmpty;  
     });  
   }  
 
   void _selectAllNotes() {  
     setState(() {  
-      if (_selectedNoteIds.length == _notes.length) {  
-        // Jika semua sudah dipilih, batalkan pemilihan  
+      if (_selectedNoteIds.length == _notes.length) {   
         _selectedNoteIds.clear();  
         _isSelectionMode = false;  
       } else {  
-        // Pilih semua catatan  
         _selectedNoteIds = _notes.map((note) => note.id).toSet();  
         _isSelectionMode = true;  
       }  
@@ -68,24 +64,19 @@ class _NotesScreenState extends State<NotesScreen> {
       ),  
     );  
 
-    // Jika dikonfirmasi, lanjutkan penghapusan  
     if (confirmDelete == true) {  
       try {  
-        // Hapus catatan satu per satu  
         for (String id in _selectedNoteIds) {  
           await _notesService.deleteNote(id);  
         }  
 
-        // Refresh daftar catatan  
         await _fetchNotes();  
 
-        // Keluar dari mode seleksi  
         setState(() {  
           _selectedNoteIds.clear();  
           _isSelectionMode = false;  
         });  
 
-        // Tampilkan pesan sukses  
         _showSnackBar('${_selectedNoteIds.length} catatan berhasil dihapus');  
       } catch (e) {  
         _showSnackBar('Gagal menghapus catatan', isError: true);  
@@ -127,7 +118,6 @@ class _NotesScreenState extends State<NotesScreen> {
             ),  
       body: Column(  
         children: [  
-          // ... kode sebelumnya tetap sama  
           Expanded(  
             child: RefreshIndicator(  
               onRefresh: _fetchNotes,   
@@ -186,12 +176,10 @@ class _NotesScreenState extends State<NotesScreen> {
             });  
           },  
           child: ListTile(  
-            // Tambahkan efek visual saat dipilih  
             tileColor: isSelected   
               ? Colors.deepOrange.withOpacity(0.2)   
               : null,  
             
-            // Tambahkan leading checkbox di mode seleksi  
             leading: _isSelectionMode  
               ? Checkbox(  
                   value: isSelected,  
@@ -223,9 +211,7 @@ class _NotesScreenState extends State<NotesScreen> {
                 ),  
               ],  
             ),  
-            
-            // Tambahkan long press untuk mode seleksi  
-            onLongPress: () {  
+                        onLongPress: () {  
               setState(() {  
                 _isSelectionMode = true;  
                 _selectedNoteIds.add(note.id);  
@@ -259,7 +245,6 @@ class _NotesScreenState extends State<NotesScreen> {
     );  
   }
   
-  // Variabel state  
   List<Note> _notes = [];  
   bool _isLoading = false;  
   String _errorMessage = '';  
@@ -267,11 +252,9 @@ class _NotesScreenState extends State<NotesScreen> {
   @override  
   void initState() {  
     super.initState();  
-    // Ambil catatan saat halaman pertama kali dimuat  
     _fetchNotes();  
   }  
 
-  // Method untuk mengambil catatan dari API  
   Future<void> _fetchNotes() async {  
     setState(() {  
       _isLoading = true;  
@@ -280,8 +263,7 @@ class _NotesScreenState extends State<NotesScreen> {
 
     try {  
       final notes = await _notesService.fetchNotes();  
-      setState(() {  
-        // Urutkan catatan berdasarkan lastEdited dalam urutan descending (terbaru di atas)  
+      setState(() {    
         _notes = notes..sort((a, b) =>   
           DateTime.parse(b.lastEdited).compareTo(DateTime.parse(a.lastEdited))  
         );  
@@ -295,15 +277,12 @@ class _NotesScreenState extends State<NotesScreen> {
     }  
   }
 
-  // Method untuk menambah catatan baru  
   Future<void> _addNote() async {  
-    // Validasi input  
     if (_titleController.text.isEmpty || _contentController.text.isEmpty) {  
       _showSnackBar('Judul dan konten harus diisi', isError: true);  
       return;  
     }  
-
-    // Tambahkan pengecekan jumlah catatan  
+ 
     if (_notes.length >= 50) {  
       _showSnackBar('Maksimal 50 catatan telah tercapai', isError: true);  
       return;  
@@ -315,10 +294,8 @@ class _NotesScreenState extends State<NotesScreen> {
         _contentController.text,  
       );  
       
-      setState(() {  
-        // Tambahkan catatan baru di posisi paling atas  
+      setState(() {   
         _notes.insert(0, newNote);  
-        // Bersihkan input  
         _titleController.clear();  
         _contentController.clear();  
       });  
@@ -328,8 +305,7 @@ class _NotesScreenState extends State<NotesScreen> {
       _showSnackBar('Gagal menambahkan catatan', isError: true);  
     }  
   }  
-
-  // Method untuk menampilkan pesan  
+ 
   void _showSnackBar(String message, {bool isError = false}) {  
     ScaffoldMessenger.of(context).showSnackBar(  
       SnackBar(  
@@ -339,7 +315,6 @@ class _NotesScreenState extends State<NotesScreen> {
     );  
   }  
 
-  // Method untuk menampilkan bottom sheet tambah catatan  
   void _showAddNoteBottomSheet() {  
     showModalBottomSheet(  
       context: context,  
@@ -383,7 +358,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   borderSide: BorderSide(color: Colors.deepOrange, width: 2),  
                 ),  
               ),  
-              maxLength: 40, // Batasi panjang judul  
+              maxLength: 40,
             ),  
             SizedBox(height: 16),  
             TextField(  
@@ -437,10 +412,8 @@ class _NotesScreenState extends State<NotesScreen> {
         backgroundColor: Colors.deepOrange,  
       ),  
       body: Column(  
-        children: [  
-          // Hapus bagian tombol tambah catatan di sini  
-
-          // Tampilan error jika ada  
+        children: [   
+ 
           if (_errorMessage.isNotEmpty)  
             Padding(  
               padding: const EdgeInsets.all(8.0),  
@@ -450,7 +423,6 @@ class _NotesScreenState extends State<NotesScreen> {
               ),  
             ),  
 
-          // Daftar catatan dengan RefreshIndicator  
           Expanded(  
             child: RefreshIndicator(  
               onRefresh: _fetchNotes,   
@@ -470,7 +442,6 @@ class _NotesScreenState extends State<NotesScreen> {
     );  
   }  
 
-  // Method untuk membangun daftar catatan  
   Widget _buildNotesList() {  
     if (_notes.isEmpty) {  
       return ListView(  
@@ -498,7 +469,6 @@ class _NotesScreenState extends State<NotesScreen> {
       itemBuilder: (context, index) {  
         final note = _notes[index];  
         
-        // Format tanggal terakhir diedit  
         String formattedLastEdited = _formatLastEdited(note.lastEdited);  
         
         return Dismissible(  
@@ -559,14 +529,12 @@ class _NotesScreenState extends State<NotesScreen> {
       },  
     );  
   }  
-
-  // Method untuk memformat tanggal terakhir diedit  
+ 
   String _formatLastEdited(String lastEditedString) {  
     try {  
       DateTime lastEdited = DateTime.parse(lastEditedString);  
       DateTime now = DateTime.now();  
       
-      // Hitung perbedaan waktu  
       Duration difference = now.difference(lastEdited);  
       
       if (difference.inMinutes < 1) {  
@@ -577,8 +545,7 @@ class _NotesScreenState extends State<NotesScreen> {
         return '${difference.inHours}j yang lalu';  
       } else if (difference.inDays < 7) {  
         return '${difference.inDays}h yang lalu';  
-      } else {  
-        // Gunakan format tanggal untuk waktu lebih dari seminggu  
+      } else {   
         return DateFormat('dd/MM/yy').format(lastEdited);  
       }  
     } catch (e) {  

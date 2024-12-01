@@ -8,35 +8,26 @@ class RegisterPage extends StatefulWidget {
   _RegisterPageState createState() => _RegisterPageState();  
 }  
 
-class _RegisterPageState extends State<RegisterPage> {  
-  // Controller untuk input  
+class _RegisterPageState extends State<RegisterPage> {   
   final TextEditingController _usernameController = TextEditingController();  
   final TextEditingController _passwordController = TextEditingController();  
   
-  // Form Key untuk validasi  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();  
 
-  // State loading  
   bool _isLoading = false;  
 
-  // Method Registrasi  
   void _registerUser() async {  
-    // Validasi form  
     if (!_formKey.currentState!.validate()) return;  
 
-    // Set loading  
     setState(() => _isLoading = true);  
 
-    try {  
-      // Panggil service registrasi  
+    try {   
       final result = await RegisterService().register(  
         username: _usernameController.text.trim(),  
         password: _passwordController.text.trim(),  
       );  
-
-      // Tangani hasil registrasi  
+ 
       if (result['success']) {  
-        // Registrasi Berhasil  
         ScaffoldMessenger.of(context).showSnackBar(  
           SnackBar(  
             content: Text(result['message']),  
@@ -44,10 +35,8 @@ class _RegisterPageState extends State<RegisterPage> {
           ),  
         );  
 
-        // Navigasi ke halaman login  
         Navigator.pushReplacementNamed(context, '/login');  
       } else {  
-        // Registrasi Gagal  
         ScaffoldMessenger.of(context).showSnackBar(  
           SnackBar(  
             content: Text(result['message']),  
@@ -56,7 +45,6 @@ class _RegisterPageState extends State<RegisterPage> {
         );  
       }  
     } catch (e) {  
-      // Error tidak terduga  
       ScaffoldMessenger.of(context).showSnackBar(  
         SnackBar(  
           content: Text('Registrasi Gagal: $e'),  
@@ -64,7 +52,6 @@ class _RegisterPageState extends State<RegisterPage> {
         ),  
       );  
     } finally {  
-      // Matikan loading  
       setState(() => _isLoading = false);  
     }  
   }  
@@ -99,7 +86,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ),  
               SizedBox(height: 16),  
 
-              // Input Password  
               TextFormField(  
                 controller: _passwordController,  
                 obscureText: true,  
@@ -119,7 +105,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ),  
               SizedBox(height: 24),  
 
-              // Tombol Registrasi  
               _isLoading   
                 ? CircularProgressIndicator()  
                 : ElevatedButton(  

@@ -4,7 +4,7 @@ class Note {
   String content;  
   String createdAt;  
   String lastEdited;  
-  String type; // Tambahkan field type  
+  String type; 
 
   Note({  
     required this.id,  
@@ -12,7 +12,7 @@ class Note {
     required this.content,  
     required this.createdAt,  
     required this.lastEdited,  
-    this.type = 'note', // Default value 'note'  
+    this.type = 'note',
   });  
 
   factory Note.fromJson(Map<String, dynamic> json) {  
@@ -22,7 +22,7 @@ class Note {
       content: json['content'],  
       createdAt: json['createdAt'],  
       lastEdited: json['lastEdited'],  
-      type: json['type'] ?? 'note', // Tambahkan parsing type  
+      type: json['type'] ?? 'note', 
     );  
   }  
 
@@ -33,7 +33,7 @@ class Note {
       'content': content,  
       'createdAt': createdAt,  
       'lastEdited': lastEdited,  
-      'type': type, // Tambahkan type ke JSON  
+      'type': type,
     };  
   }  
 }

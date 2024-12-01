@@ -14,7 +14,7 @@ class ThemeProvider extends ChangeNotifier {
     notifyListeners();  
   }  
 
-  // Definisikan tema light  
+  // Light theme  
   ThemeData lightTheme = ThemeData(  
     fontFamily: 'SFProRounded',  
     brightness: Brightness.light,  
@@ -48,7 +48,7 @@ class ThemeProvider extends ChangeNotifier {
     ),  
   );  
 
-  // Definisikan tema dark  
+  // Dark theme 
   ThemeData darkTheme = ThemeData(  
     fontFamily: 'SFProRounded',  
     brightness: Brightness.dark,  

@@ -40,7 +40,6 @@ class _LoginState extends State<Login> {
     );  
   }  
 
-  // Tambahkan method _usernameField  
   Widget _usernameField() {  
     return TextFormField(  
       decoration: const InputDecoration(  
@@ -57,7 +56,6 @@ class _LoginState extends State<Login> {
     );  
   }  
 
-  // Tambahkan method _passwordField  
   Widget _passwordField() {  
     return TextFormField(  
       obscureText: true,  
@@ -75,7 +73,6 @@ class _LoginState extends State<Login> {
     );  
   }  
 
-  // Tambahkan method _tombolLogin  
   Widget _tombolLogin() {  
     return ElevatedButton(  
       child: const Text('Login'),  
@@ -86,7 +83,6 @@ class _LoginState extends State<Login> {
 
           await LoginService().login(username, password).then((value) {  
             if (value) {  
-              // Ganti ke MainApp() bukan HomeScreen  
               Navigator.pushReplacement(  
                 context,  
                 MaterialPageRoute(builder: (context) => MainApp()),  
@@ -105,12 +101,10 @@ class _LoginState extends State<Login> {
     );  
   }
 
-  // Tambahkan method _tombolRegister  
   Widget _tombolRegister() {  
     return TextButton(  
       child: const Text('Belum punya akun? Daftar'),  
       onPressed: () {  
-        // Navigasi ke halaman register  
         Navigator.pushNamed(context, '/register');  
       },  
     );  

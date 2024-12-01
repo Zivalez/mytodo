@@ -20,14 +20,12 @@ class _TodoPageState extends State<TodoPage> {
     fetchTasks();  
   }  
 
-  // Fetch tasks dari api  
   Future<void> fetchTasks() async {  
     try {  
       final response = await http.get(Uri.parse(apiUrl));  
       
       if (response.statusCode == 200) {  
         setState(() {  
-          // Filter hanya item dengan type "todo"  
           _tasks = List<Map<String, dynamic>>.from(  
             json.decode(response.body)  
               .where((item) => item['type'] == 'todo')  
@@ -77,8 +75,7 @@ class _TodoPageState extends State<TodoPage> {
       },  
     );  
   }  
-
-  // Tugas baru  
+ 
   Future<void> addTask(String task) async {  
     if (_tasks.length >= totalTasks) {  
       showMaxTasksReachedDialog();  
@@ -99,7 +96,6 @@ class _TodoPageState extends State<TodoPage> {
       );  
 
       if (response.statusCode == 201) {  
-        // Tambahkan di akhir list, bukan di awal  
         final newTask = json.decode(response.body);  
         
         setState(() {  
@@ -122,7 +118,6 @@ class _TodoPageState extends State<TodoPage> {
     }  
   }
 
-  // Complete tugas status  
   Future<void> toggleTaskCompletion(String id, bool isCompleted) async {  
     final response = await http.put(  
       Uri.parse('$apiUrl/$id'),  
@@ -131,14 +126,10 @@ class _TodoPageState extends State<TodoPage> {
     );  
     
     if (response.statusCode == 200) {  
-      setState(() {  
-        // Temukan index task yang spesifik  
+      setState(() {   
         int index = _tasks.indexWhere((task) => task['id'] == id);  
         if (index != -1) {  
-          // Update hanya completed status pada task tersebut  
-          _tasks[index]['completed'] = isCompleted;  
-          
-          // Perbarui hitungan completed tasks  
+          _tasks[index]['completed'] = isCompleted;
           completedTasks = _tasks.where((task) => task['completed'] == true).length;  
         }  
       });  
@@ -147,7 +138,6 @@ class _TodoPageState extends State<TodoPage> {
     }  
   }
 
-  // Edit tugas  
   Future<void> editTask(String id, String newTask) async {  
     final response = await http.put(  
       Uri.parse('$apiUrl/$id'),  
@@ -157,10 +147,8 @@ class _TodoPageState extends State<TodoPage> {
     
     if (response.statusCode == 200) {  
       setState(() {  
-        // Temukan index task yang spesifik  
         int index = _tasks.indexWhere((task) => task['id'] == id);  
         if (index != -1) {  
-          // Update hanya task pada index tersebut  
           _tasks[index]['task'] = newTask;  
         }  
       });  
@@ -169,16 +157,13 @@ class _TodoPageState extends State<TodoPage> {
     }  
   }
 
-  // Hapus tugas  
   Future<void> deleteTask(String id) async {  
     final response = await http.delete(Uri.parse('$apiUrl/$id'));  
     
     if (response.statusCode == 200) {  
-      setState(() {  
-        // Hapus task berdasarkan id  
+      setState(() {   
         _tasks.removeWhere((task) => task['id'] == id);  
         
-        // Perbarui hitungan completed tasks  
         completedTasks = _tasks.where((task) => task['completed'] == true).length;  
       });  
     } else {  
@@ -186,7 +171,6 @@ class _TodoPageState extends State<TodoPage> {
     }  
   }
 
-  // popup dialog kalo edit  
   void showEditDialog(String id, String currentTask) {  
     final TextEditingController editController = TextEditingController(text: currentTask);  
     
@@ -220,8 +204,7 @@ class _TodoPageState extends State<TodoPage> {
       },  
     );  
   }  
-
-  // konfirmasi sebelum hapus  
+ 
   void showDeleteConfirmationDialog(String id) {  
     showDialog(  
       context: context,  
@@ -265,7 +248,6 @@ class _TodoPageState extends State<TodoPage> {
         child: Column(  
           crossAxisAlignment: CrossAxisAlignment.start,  
           children: [  
-            // Hapus baris Row untuk input tugas  
 
             SizedBox(height: 8),  
             Text("Maksimal 50 Tugas"),  
@@ -327,7 +309,6 @@ class _TodoPageState extends State<TodoPage> {
     );  
   }  
 
-  // Tambahkan method baru untuk menampilkan bottom sheet  
   void _showAddTaskBottomSheet() {  
     showDialog(  
       context: context,  
@@ -342,7 +323,7 @@ class _TodoPageState extends State<TodoPage> {
             TextButton(  
               onPressed: () {  
                 Navigator.of(context).pop();  
-                _taskController.clear(); // Bersihkan controller saat batal  
+                _taskController.clear();
               },  
               child: Text("Batal"),  
             ),  
@@ -351,7 +332,7 @@ class _TodoPageState extends State<TodoPage> {
                 if (_taskController.text.isNotEmpty) {  
                   addTask(_taskController.text);  
                   Navigator.of(context).pop();  
-                  _taskController.clear(); // Bersihkan controller setelah tambah  
+                  _taskController.clear();
                 }  
               },  
               child: Text("Tambah"),  

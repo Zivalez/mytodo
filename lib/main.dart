@@ -8,7 +8,7 @@ import 'package:mytodo/page/notes.dart';
 import 'package:provider/provider.dart';  
 import 'package:mytodo/page/themeprovider.dart';  
 import 'package:mytodo/page/login.dart';  
-import 'package:mytodo/page/register.dart'; // Tambahkan import register page  
+import 'package:mytodo/page/register.dart';
 import 'package:mytodo/helpers/user_info.dart';  
 
 class MyHttpOverrides extends HttpOverrides {  
@@ -86,17 +86,15 @@ class _MainAppState extends State<MainApp> {
 }  
 
 void main() async {  
-  // Inisialisasi HttpOverrides  
   HttpOverrides.global = MyHttpOverrides();  
   
-  // Tambahkan pengecekan token  
   WidgetsFlutterBinding.ensureInitialized();  
   String? token = await UserInfo().getToken();  
   
   runApp(  
     ChangeNotifierProvider(  
       create: (context) => ThemeProvider(),   
-      child: MyApp(isLoggedIn: token != null), // Gunakan token != null  
+      child: MyApp(isLoggedIn: token != null),
     ),  
   );  
 }  
@@ -115,7 +113,6 @@ class MyApp extends StatelessWidget {
           theme: themeProvider.lightTheme,  
           darkTheme: themeProvider.darkTheme,  
           themeMode: themeProvider.themeMode,  
-          // Ubah home menjadi kondisional  
           home: isLoggedIn ? MainApp() : Login(),  
           routes: {  
             '/login': (context) => Login(),  

@@ -7,7 +7,6 @@ class LoginService {
 
   Future<bool> login(String username, String password) async {  
     try {  
-      // Cari user dengan username yang sesuai  
       Response response = await _dio.get(_apiUrl,   
         queryParameters: {  
           'username': username,  
@@ -15,18 +14,15 @@ class LoginService {
         }  
       );  
 
-      // Cek apakah ada user yang cocok  
       if (response.data != null && response.data.isNotEmpty) {  
         // Generate token sederhana (bisa diganti dengan metode yang lebih aman)  
         String token = DateTime.now().millisecondsSinceEpoch.toString();  
         
-        // Simpan token dan username  
         await UserInfo().setToken(token);  
         await UserInfo().setUsername(username);  
         
         return true;  
       } else {  
-        // Login gagal  
         return false;  
       }  
     } catch (e) {  

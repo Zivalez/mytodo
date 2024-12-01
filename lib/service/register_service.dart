@@ -12,10 +12,8 @@ class RegisterService {
     required String password,  
   }) async {  
     try {  
-      // Step 1: Ambil semua pengguna  
       Response response = await _dio.get('users');  
 
-      // Cek apakah username sudah ada  
       List<dynamic> users = response.data;  
       for (var user in users) {  
         if (user['username'] == username) {  
@@ -26,7 +24,6 @@ class RegisterService {
         }  
       }  
 
-      // Step 2: Lakukan registrasi  
       Response registrationResponse = await _dio.post('users',   
         data: {  
           'username': username,  
@@ -35,7 +32,6 @@ class RegisterService {
         }  
       );  
 
-      // Cek apakah registrasi berhasil  
       if (registrationResponse.statusCode == 201) {  
         return {  
           'success': true,   
@@ -48,12 +44,10 @@ class RegisterService {
           'message': 'Registrasi Gagal'  
         };  
       }  
-    } on DioError catch (e) {  
-      // Tangani error spesifik Dio  
+    } on DioError catch (e) {   
       print('Dio Error: ${e.type}');  
       print('Error Message: ${e.message}');  
 
-      // Cek response error  
       if (e.response != null) {  
         print('Error Status: ${e.response!.statusCode}');  
         print('Error Data: ${e.response!.data}');  
@@ -64,7 +58,6 @@ class RegisterService {
         'message': 'Terjadi Kesalahan: ${e.message}'  
       };  
     } catch (e) {  
-      // Tangani error umum  
       print('Unexpected Error: $e');  
       return {  
         'success': false,   

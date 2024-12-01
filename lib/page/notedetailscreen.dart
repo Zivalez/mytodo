@@ -17,12 +17,11 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
   late TextEditingController _contentController;  
   late TextEditingController _titleController;  
   bool _isEditingContent = false;  
-  late Note _currentNote; // Tambahkan variabel untuk menyimpan catatan saat ini  
+  late Note _currentNote; 
 
   @override  
   void initState() {  
-    super.initState();  
-    // Inisialisasi dengan menggunakan widget.note sebagai _currentNote  
+    super.initState();   
     _currentNote = widget.note;  
     _contentController = TextEditingController(text: _currentNote.content);  
     _titleController = TextEditingController(text: _currentNote.title);  
@@ -35,7 +34,6 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
     super.dispose();  
   }  
 
-  // Method untuk menampilkan dialog edit judul  
   void _showEditTitleDialog() {  
     _titleController.text = _currentNote.title;  
 
@@ -62,15 +60,15 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
                     Note updatedNote = await _notesService.updateNote(  
                       _currentNote.id,  
                       _titleController.text,  
-                      _currentNote.content, // Konten tetap sama  
+                      _currentNote.content,
                     );  
 
                     setState(() {  
-                      _currentNote = updatedNote; // Perbarui _currentNote dengan data terbaru  
+                      _currentNote = updatedNote;
                       _titleController.text = updatedNote.title;  
                     });  
 
-                    Navigator.of(context).pop(); // Tutup dialog  
+                    Navigator.of(context).pop();
                   } catch (e) {  
                     ScaffoldMessenger.of(context).showSnackBar(  
                       SnackBar(content: Text('Failed to update title: $e')),  
@@ -90,7 +88,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
   Widget build(BuildContext context) {  
     return Scaffold(  
       appBar: AppBar(  
-        title: Text(_currentNote.title), // Gunakan _currentNote  
+        title: Text(_currentNote.title),
         backgroundColor: Colors.deepOrange,  
         actions: [  
           IconButton(  
@@ -110,7 +108,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
             ),  
             SizedBox(height: 8),  
             Text(  
-              'Terakhir diedit: ${_formatDateTime(_currentNote.lastEdited)}', // Gunakan lastEdited  
+              'Terakhir diedit: ${_formatDateTime(_currentNote.lastEdited)}',
               style: TextStyle(color: Colors.grey),  
             ),  
             SizedBox(height: 16),  
@@ -131,7 +129,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
                       ),  
                     )  
                   : Text(  
-                      _currentNote.content, // Gunakan _currentNote  
+                      _currentNote.content,
                       style: TextStyle(fontSize: 18),  
                     ),  
             ),  
@@ -160,7 +158,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
                           );  
 
                           setState(() {  
-                            _currentNote = updatedNote; // Perbarui _currentNote dengan data terbaru  
+                            _currentNote = updatedNote;
                             _contentController.text = updatedNote.content;  
                             _isEditingContent = false;  
                           });  
@@ -181,7 +179,6 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
     );  
   }  
 
-  // Helper method to format datetime  
   String _formatDateTime(String dateTimeString) {  
     try {  
       DateTime dateTime = DateTime.parse(dateTimeString);  

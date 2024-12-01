@@ -5,7 +5,6 @@ class UserService {
     baseUrl: 'https://6735a0a75995834c8a936f0e.mockapi.io/api/v5/',  
   ));  
 
-  // Method untuk mendapatkan semua pengguna  
   Future<List<String>> getAllUsers() async {  
     try {  
       Response response = await _dio.get('users');  

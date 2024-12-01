@@ -22,10 +22,8 @@ class NotesService {
 
   Future<Note> createNote(String title, String content) async {  
     try {  
-      // Ambil semua catatan terlebih dahulu  
       final notes = await fetchNotes();  
 
-      // Periksa jumlah catatan  
       if (notes.length >= 50) {  
         throw Exception('Maksimal 50 catatan telah tercapai');  
       }  
@@ -55,7 +53,6 @@ class NotesService {
     }  
   }
 
-  // Method tambahan: Hapus catatan  
   Future<void> deleteNote(String id) async {  
     try {  
       final response = await http.delete(Uri.parse('$baseUrl/$id'));  
@@ -67,8 +64,7 @@ class NotesService {
       throw Exception('Network error: $e');  
     }  
   }  
-
-  // Metode untuk memperbarui catatan  
+ 
   Future<Note> updateNote(String id, String title, String content) async {  
     try {  
       String currentTime = DateTime.now().toIso8601String();  
@@ -76,8 +72,8 @@ class NotesService {
         'id': id,  
         'title': title,  
         'content': content,  
-        'lastEdited': currentTime, // Pastikan ini diperbarui  
-        'type': 'note', // Pastikan type tetap note  
+        'lastEdited': currentTime,
+        'type': 'note',
       };  
 
       final response = await http.put(  
