@@ -13,7 +13,7 @@ Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-
 - **Foto Profil**: Menggunakan Random User API, Menghasilkan foto acak.
 - **Daftar Pengguna Terhubung**: Melihat daftar pengguna lain yang terhubung dalam aplikasi.  
 - **Logout**: Pengguna dapat keluar dari aplikasi dengan mudah. 
-## 💻 Install
+## ⬇️ Install
 
 Platform | Download | Status
 :-: | :-: | :-: |
