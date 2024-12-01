@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';  
 
-class SearchScreen extends StatelessWidget {  
+class ProfileScreen extends StatelessWidget {  
   @override  
   Widget build(BuildContext context) {  
     return Scaffold(  
       appBar: AppBar(  
         centerTitle: true,
-        title: Text('Search'),  
+        title: Text('Profile'),  
       ),  
       body: Center(  
-        child: Text('Search Page'),  
+        child: Text('Profile Page'),  
       ),  
     );  
   }  
