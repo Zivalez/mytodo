@@ -5,6 +5,11 @@
 
 
 Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-do list dan catatan.
+## Screenshots
+
+![App Screenshot](https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true|width=40)
+
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true" width="200" alt="App Screenshot">
 ## 🌟 Features
 
 - **Manajemen Tugas**: Pengguna dapat menambahkan, mengedit, dan menghapus tugas dalam daftar to-do.  
@@ -19,7 +24,7 @@ Platform | Download | Status
 :-: | :-: | :-: |
 Android | [initial releases](https://github.com/Zivalez/mytodo/releases/tag/v1.0.0) | released
 
-## 💡 Light-dark color scheme
+## 💡 Light-Dark color scheme
 
 | Mode             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
@@ -94,7 +99,6 @@ Android | [initial releases](https://github.com/Zivalez/mytodo/releases/tag/v1.0
 - **Status Pengembangan**: Aktif  
 
 ## Rencana Pengembangan Mendatang  
-
-- Tambahkan fitur reset password  
-- Implementasi penghapusan tugas  
+  
+- Implementasi penghapusan catatan  
 - Perbaikan kinerja dan antarmuka
