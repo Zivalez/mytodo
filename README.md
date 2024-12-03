@@ -5,14 +5,14 @@
 
 
 Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-do list dan catatan.
-## Screenshots
-
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true" width="200" alt="Todo Light Mode">
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-dark.jpeg?raw=true" width="200" alt="Todo Dark Mode">
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-light.jpeg?raw=true" width="200" alt="Notes Light Mode">
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-dark.jpeg?raw=true" width="200" alt="Notes Dark Mode">
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-profile-light.jpeg?raw=true" width="200" alt="Profile Light Mode">
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-profile-dark.jpeg?raw=true" width="200" alt="Profie Dark Mode">
+<div style="display: flex; gap: 10px; overflow-x: auto;">  
+    <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true" width="200" alt="Todo Light Mode">  
+    <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-dark.jpeg?raw=true" width="200" alt="Todo Dark Mode">  
+    <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-light.jpeg?raw=true" width="200" alt="Notes Light Mode">  
+    <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-dark.jpeg?raw=true" width="200" alt="Notes Dark Mode">  
+    <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-profile-light.jpeg?raw=true" width="200" alt="Profile Light Mode">  
+    <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-profile-dark.jpeg?raw=true" width="200" alt="Profile Dark Mode">  
+</div>
 
 ## 🌟 Features
 
