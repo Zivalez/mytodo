@@ -28,17 +28,18 @@ Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-
 - **Logout**: Pengguna dapat keluar dari aplikasi dengan mudah. 
 ## ⬇️ Install
 
-Platform | Download | Status
+Platform | Download | Version | Status
 :-: | :-: | :-: |
-Android | [initial releases](https://github.com/Zivalez/mytodo/releases/tag/v1.0.0) | released
+Android | [initial releases](https://github.com/Zivalez/mytodo/releases/tag/v1.0.0) | 1.0.0 | released
+
 
 ## 💡 Light-Dark color scheme
 
-| Mode             | Hex                                                                |
+| Mode              | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Primary Color     | ![#FF6633](https://via.placeholder.com/10/FF6633?text=+) #FF5722 |
-| Dark       | ![#212121](https://via.placeholder.com/10/212121?text=+) #212121 |
-| Light      | ![#FFFFFF](https://via.placeholder.com/10/FFFFFF?text=+) #FFFFFF |
+| Primary Color     | ![#FF6633](https://via.placeholder.com/10/FF6633?text=+) #FF5722   |
+| Dark              | ![#212121](https://via.placeholder.com/10/212121?text=+) #212121   |
+| Light             | ![#FFFFFF](https://via.placeholder.com/10/FFFFFF?text=+) #FFFFFF   |
 
 ## ❓ FAQ
 
