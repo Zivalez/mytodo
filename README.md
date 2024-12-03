@@ -5,7 +5,7 @@
 
 
 Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-do list dan catatan.
-<div style="display: flex; gap: 10px; overflow-x: auto;">  
+<div style="display: flex; gap: 20px; overflow-x: auto;">  
     <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true" width="100" alt="Todo Light Mode">  
     <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-dark.jpeg?raw=true" width="100" alt="Todo Dark Mode">  
     <img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-light.jpeg?raw=true" width="100" alt="Notes Light Mode">  
