@@ -29,7 +29,7 @@ Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-
 ## ⬇️ Install
 
 Platform | Download | Version | Status
-:-: | :-: | :-: |
+:-: | :-: | :-: | :-: |
 Android | [initial releases](https://github.com/Zivalez/mytodo/releases/tag/v1.0.0) | 1.0.0 | released
 
 
