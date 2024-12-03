@@ -7,9 +7,13 @@
 Aplikasi ini adalah manajer tugas yang memungkinkan pengguna untuk mengelola to-do list dan catatan.
 ## Screenshots
 
-![App Screenshot](https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true|width=40)
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true" width="200" alt="Todo Light Mode">
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-dark.jpeg?raw=true" width="200" alt="Todo Dark Mode">
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-light.jpeg?raw=true" width="200" alt="Notes Light Mode">
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-notes-dark.jpeg?raw=true" width="200" alt="Notes Dark Mode">
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-profile-light.jpeg?raw=true" width="200" alt="Profile Light Mode">
+<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-profile-dark.jpeg?raw=true" width="200" alt="Profie Dark Mode">
 
-<img src="https://github.com/Zivalez/mytodo/blob/main/assets/images/Screenshot-todo-light.jpeg?raw=true" width="200" alt="App Screenshot">
 ## 🌟 Features
 
 - **Manajemen Tugas**: Pengguna dapat menambahkan, mengedit, dan menghapus tugas dalam daftar to-do.  
