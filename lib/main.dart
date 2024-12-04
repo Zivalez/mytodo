@@ -29,7 +29,7 @@ class _MainAppState extends State<MainApp> {
 
   static List<Widget> _pages = <Widget>[  
     HomeScreen(),  
-    TodoPage(),  
+    TodoScreen(),  
     NotesScreen(),  
     SearchScreen(),  
     ProfileScreen(),  
@@ -78,10 +78,10 @@ class _MainAppState extends State<MainApp> {
             icon: Icon(Icons.person_outlined),  
             selectedIcon: Icon(Icons.person_rounded),  
             label: 'Profile',   
-          ),  
-        ],  
-      ),  
-    );  
+          ),
+        ],
+      ),
+    );
   }  
 }  
 
@@ -95,7 +95,7 @@ void main() async {
     ChangeNotifierProvider(  
       create: (context) => ThemeProvider(),   
       child: MyApp(isLoggedIn: token != null),
-    ),  
+    ),
   );  
 }  
 
@@ -118,8 +118,8 @@ class MyApp extends StatelessWidget {
             '/login': (context) => Login(),  
             '/register': (context) => RegisterScreen(),  
           },  
-        );  
+        );
       },  
-    );  
+    );
   }  
 }  

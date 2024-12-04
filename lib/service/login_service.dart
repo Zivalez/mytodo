@@ -15,7 +15,6 @@ class LoginService {
       );  
 
       if (response.data != null && response.data.isNotEmpty) {  
-        // Generate token sederhana (bisa diganti dengan metode yang lebih aman)  
         String token = DateTime.now().millisecondsSinceEpoch.toString();  
         
         await UserInfo().setToken(token);  

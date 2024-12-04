@@ -15,7 +15,7 @@ class ColorLoader4 extends StatefulWidget {
     this.dotOneColor = Colors.orange,
     this.dotTwoColor = Colors.deepOrangeAccent,
     this.dotThreeColor = Colors.deepOrange,
-    this.duration = const Duration(milliseconds: 1000),
+    this.duration = const Duration(milliseconds: 800),
     this.dotType = DotType.diamond,
     this.dotIcon = const Icon(Icons.blur_on)
   });

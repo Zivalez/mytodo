@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;  
 import 'dart:convert';  
 
-class TodoPage extends StatefulWidget {  
+class TodoScreen extends StatefulWidget {  
   @override  
-  _TodoPageState createState() => _TodoPageState();  
+  _TodoScreenState createState() => _TodoScreenState();  
 }  
 
-class _TodoPageState extends State<TodoPage> {  
+class _TodoScreenState extends State<TodoScreen> {  
   final String apiUrl = 'https://6735a0a75995834c8a936f0e.mockapi.io/api/v5/items';  
   final TextEditingController _taskController = TextEditingController();  
   List<Map<String, dynamic>> _tasks = [];  

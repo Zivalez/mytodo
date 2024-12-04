@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:mytodo/helpers/user_info.dart';  
 import 'package:mytodo/page/login.dart';  
 import 'package:mytodo/service/profile_service.dart';  
-import 'package:mytodo/service/user_service.dart';  
+import 'package:mytodo/service/user_service.dart';
+import 'package:mytodo/widgets/color_loader4.dart';  
 
 class ProfileImageService {  
   Future<String> getProfileImageUrl() async {  
@@ -181,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
       body: RefreshIndicator(  
         onRefresh: _loadProfileData,  
         child: _isLoading   
-          ? Center(child: CircularProgressIndicator())  
+          ? Center(child: ColorLoader4())  
           : Padding(  
           padding: const EdgeInsets.all(16.0),  
           child: Column(  

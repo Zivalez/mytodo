@@ -100,7 +100,6 @@ class HomeScreen extends StatelessWidget {
               ),  
             ),  
             const SizedBox(height: 10),  
-            // Daftar nama  
             ..._buildNameList(),  
             
             const SizedBox(height: 20),  
