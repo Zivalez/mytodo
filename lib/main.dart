@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
           home: isLoggedIn ? MainApp() : Login(),  
           routes: {  
             '/login': (context) => Login(),  
-            '/register': (context) => RegisterPage(),  
+            '/register': (context) => RegisterScreen(),  
           },  
         );  
       },  

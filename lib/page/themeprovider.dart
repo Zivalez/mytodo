@@ -27,18 +27,18 @@ class ThemeProvider extends ChangeNotifier {
     ),  
     appBarTheme: AppBarTheme(  
       backgroundColor: Colors.deepOrange,  
-      foregroundColor: Colors.white,  
+      foregroundColor: Color.fromARGB(255, 247, 243, 231), 
       titleTextStyle: TextStyle(  
         fontFamily: 'SFProRounded',   
         fontSize: 20,   
         fontWeight: FontWeight.bold,  
-        color: Colors.white,  
+        color: Color.fromARGB(255, 247, 243, 231), 
       ),  
     ),  
     elevatedButtonTheme: ElevatedButtonThemeData(  
       style: ElevatedButton.styleFrom(  
         backgroundColor: Colors.deepOrange,  
-        foregroundColor: Colors.white,  
+        foregroundColor: Color.fromARGB(255, 247, 243, 231),  
       ),  
     ),  
     textSelectionTheme: TextSelectionThemeData(  
@@ -46,6 +46,7 @@ class ThemeProvider extends ChangeNotifier {
       selectionColor: Colors.deepOrange.withOpacity(0.3),  
       selectionHandleColor: Colors.deepOrange,  
     ),  
+    scaffoldBackgroundColor: Color.fromARGB(255, 247, 243, 231),
   );  
 
   // Dark theme 
@@ -62,18 +63,18 @@ class ThemeProvider extends ChangeNotifier {
     ),  
     appBarTheme: AppBarTheme(  
       backgroundColor: Colors.deepOrange,  
-      foregroundColor: Colors.white,  
+      foregroundColor: Color.fromARGB(255, 247, 243, 231),   
       titleTextStyle: TextStyle(  
         fontFamily: 'SFProRounded',   
         fontSize: 20,   
         fontWeight: FontWeight.bold,  
-        color: Colors.white,  
+        color: Color.fromARGB(255, 247, 243, 231), 
       ),  
     ),  
     elevatedButtonTheme: ElevatedButtonThemeData(  
       style: ElevatedButton.styleFrom(  
         backgroundColor: Colors.deepOrange,  
-        foregroundColor: Colors.white,  
+        foregroundColor: Color.fromARGB(255, 247, 243, 231),   
       ),  
     ),  
     textSelectionTheme: TextSelectionThemeData(  

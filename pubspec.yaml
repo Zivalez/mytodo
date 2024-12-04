@@ -59,6 +59,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/UBSI.png
+    - assets/images/todo2.jpeg
+    - assets/images/registerdb.webp
   uses-material-design: true
   fonts:
     - family: SFProRounded

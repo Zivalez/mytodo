@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';  
+import 'package:flutter/material.dart';
+import 'package:mytodo/widgets/color_loader4.dart'; 
 import '../models/note_model.dart';  
 import 'package:mytodo/service/notes_service.dart';  
 import 'package:mytodo/page/notedetailscreen.dart'; 
@@ -119,11 +120,11 @@ class _NotesScreenState extends State<NotesScreen> {
       body: Column(  
         children: [  
           Expanded(  
-            child: RefreshIndicator(  
+            child: RefreshIndicator(
               onRefresh: _fetchNotes,   
-              child: _isLoading  
-                  ? Center(child: CircularProgressIndicator())  
-                  : _buildNotesList(),  
+              child: _isLoading
+                  ? Center(child: ColorLoader4())  
+                  : _buildNotesList(),
             ),  
           ),  
         ],  
