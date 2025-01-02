@@ -113,6 +113,7 @@ class MyApp extends StatelessWidget {
           theme: themeProvider.lightTheme,  
           darkTheme: themeProvider.darkTheme,  
           themeMode: themeProvider.themeMode,  
+          debugShowCheckedModeBanner: false,
           home: isLoggedIn ? MainApp() : Login(),  
           routes: {  
             '/login': (context) => Login(),  

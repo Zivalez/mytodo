@@ -33,7 +33,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {   
       await Future.delayed(Duration(seconds: 2));
-      // Memanggil register service seperti pada fungsi lama
       final result = await RegisterService().register(  
         username: _usernameController.text.trim(),  
         password: _passwordController.text.trim(),  

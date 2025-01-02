@@ -185,28 +185,47 @@ class _LoginState extends State<Login> {
                             )  
                           ],  
                         ),  
-                        onPressed: () async {  
-                          if (_usernameCtrl.text.isNotEmpty && _passwordCtrl.text.isNotEmpty) {  
-                            String username = _usernameCtrl.text;  
-                            String password = _passwordCtrl.text;  
+                        onPressed: () async {
+                          if (_usernameCtrl.text.isEmpty || _passwordCtrl.text.isEmpty) {
+                            // Menampilkan dialog peringatan jika salah satu form belum diisi
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Peringatan"),
+                                  content: Text("Silakan isi semua field sebelum melanjutkan."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text("OK"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop(); // Menutup dialog
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            String username = _usernameCtrl.text;
+                            String password = _passwordCtrl.text;
 
-                            await LoginService().login(username, password).then((value) {  
-                              if (value) {  
-                                Navigator.pushReplacement(  
-                                  context,  
-                                  MaterialPageRoute(builder: (context) => MainApp()),  
-                                );  
-                              } else {  
-                                ScaffoldMessenger.of(context).showSnackBar(  
-                                  const SnackBar(  
-                                    content: Text('Username atau Password Salah'),  
-                                    backgroundColor: Colors.red,  
-                                  ),  
-                                );  
-                              }  
-                            });  
-                          }  
-                        },  
+                            await LoginService().login(username, password).then((value) {
+                              if (value) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MainApp()),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Username atau Password Salah'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            });
+                          }
+                        },
                       ),  
                     ),  
                   ],  
